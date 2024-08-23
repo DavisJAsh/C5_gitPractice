@@ -23,7 +23,7 @@ while true; do
     clear
 
     while true; do
-        # The user will need to select an activity.
+        # The user will need to select an activity to start the game. Lists the tasks to choose from.
         echo "What do you want to do?"
         echo " "
         echo "1 - Do your homework"
@@ -37,16 +37,19 @@ while true; do
         echo "Enter your choice (1-6): "
         read choice
 
-        # Validate that the input is an integer between 1 and 6
+        # Validate that the input, confirms user can only enter numbers 1-6
         if ! [[ "$choice" =~ ^[1-6]$ ]]; then
             echo "Sorry, you must choose a number between 1 and 6."
+            sleep 2
+            clear
             continue
         fi
-
-        # User will have to satisfy all the below tasks, which will turn the variable from false (declared at the start) to true.
+        
+        #Conditional statements to handle user choice, each statement will check if the task is already done.
+        # User will have to satisfy all the below tasks, choosing the task will turn the variable from false (declared at the start) to true.
         if [ "$choice" = 1 ]; then
             if [ "$homework_done" = true ]; then
-                echo "Homework is complete!"
+                echo "Your homework is already complete! Pick another task!"
             else
                 echo "You walk over to the kitchen table and finish your homework."
                 homework_done=true
@@ -55,7 +58,7 @@ while true; do
         clear
         elif [ "$choice" = 2 ]; then
             if [ "$chores_done" = true ]; then
-                echo "You washed the dishes and cleaned your room!"
+                echo "You already washed the dishes and cleaned your room! Pick another task!"
             else
                 echo "You go check the sink, then clean any dishes that are there. Then you pick up the clothes off the floor in your bedroom."
                 chores_done=true
@@ -64,7 +67,7 @@ while true; do
         clear
         elif [ "$choice" = 3 ]; then
             if [ "$dog_fed" = true ]; then
-                echo "Your dog lives another day! He enjoyed his meal!"
+                echo "Oh NO! Don't over feed you dog! He already enjoyed his meal! On to the next task!"
             else
                 echo "You grab a cup of doggie kibble and fill his bowl. Then you give him fresh water."
                 dog_fed=true
@@ -73,7 +76,7 @@ while true; do
         clear
         elif [ "$choice" = 4 ]; then
             if [ "$parental_controls" = true ]; then
-                echo "Parental controls are for suckers! #Winning"
+                echo "Parental controls are for suckers! You broke them already #Winning"
             else
                 echo "You brute force that 4-character pin to figure out how to bypass the parental controls that are blocking you from playing ESRB rated T for teen games."
                 parental_controls=true
@@ -81,26 +84,26 @@ while true; do
         sleep 4
         clear
 
-        # Checking all tasks are complete to allow the user to run the game.
+        # Checking all tasks are complete to allow the user to play their game.
         elif [ "$choice" = 5 ]; then
             if [ "$homework_done" = true ] && [ "$chores_done" = true ] && [ "$dog_fed" = true ] && [ "$parental_controls" = true ]; then
                 echo "Yaaaasssssss.....You're winning.... you got all your tasks done for the day!"
                 echo "You can finally play $game!"
-                break
+                break    #exists loop allows user to choose to play again
             else
                 echo "You can only play $game once you have finished all your tasks for the day, get to work!"
             fi
         sleep 4
         clear
         elif [ "$choice" = 6 ]; then
-            echo "Maybe tomorrow will be better; you're just too tired to be bothered with any of it. You decide to go to bed."
-            break      
+            echo "You're just too tired to be bothered with any of it. You decide to go to bed."
+            break      #exists loop allows user to choose to play again
         fi
     done
 
     sleep 6
     clear
-    echo "Do you want to play again? (yes/no)" # Resets the game or exits
+    echo "Do you want to play again? (yes/no)" #Asks user to play again, then resets the game or exits
     read play_again
     if [ "$play_again" != "yes" ]; then
         echo "See ya next time!"
