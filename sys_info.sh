@@ -9,19 +9,8 @@ while true; do
     echo "Would you like to check a system resource? (yes/no)"
     read answer
 
-# Confirms the user can only enter yes or no to the response
-        if [[ "$answer" == "yes" || == "no" ]]; then
-            break
-        else
-            echo "Sorry, you can only select "yes" or "no"."
-            sleep 1
-            clear
-            continue
-        fi
-    sleep 1
-
     if [ "$answer" = "yes" ]; then
-sleep 1
+    sleep 1
         echo "1 - IP Address"
         echo "2 - Current Username"
         echo "3 - CPU Usage"
@@ -31,41 +20,30 @@ sleep 1
         echo "7 - Network Connectivity"
         echo "8 - Exit"
         echo " "
-        sleep 1
         echo "Make a selection (1-8):"
         read choice
 
-# Confirms the user can only enter yes or no for the response
-        if [[ "$answer" != 1 || "$answer" != 2 || "$answer" != 3 || "$answer" != 4 || "$answer" != 5 || "$answer" != 6 || "$answer" != 7 || "$answer" != 8 ]]; then
-            break
-        else
-            echo "Sorry, you can only select numbers "1-8"."
-            sleep 2
-            clear
-            continue
-        fi
-
-#Starting the conditional statements to handle user choice for each selection
+#Starting the conditional statements to handle user choice for each selection using "if" statements
 #1. IP Addresses: 
         if [ "$choice" = 1 ]; then
             ip_address=$(hostname --ip-address)
             public_ip=$(host myip.opendns.com resolver1.opendns.com | awk '{print $4}')
             echo "Your private IP is $ip_address, and you public IP is $public_ip"
-    sleep 6
+    sleep 3
     clear
 
 #2. Current User:
         elif [ "$choice" = 2 ]; then
             current_user=$(whoami)
             echo "You are logged in as: $current_user"
-    sleep 4
+    sleep 3
     clear
 
 #3. CPU Usage Information
         elif [ "$choice" = 3 ]; then
             cpu_usage=$(top -bn1 | grep "Cpu(s)" | awk '{print $2 + $4}')
             echo "CPU Usage: $cpu_usage%"
-    sleep 4
+    sleep 3
     clear
 
 #4. Memory Information [NR == 2 <--- means only the second line of the selection]
@@ -97,23 +75,20 @@ sleep 1
 
 #7. Network Connectivity #ask user for a website or IP address to connect to first and then produce a statement regarding the network connection, ex answer: "It took 7ms to connect to www.google.com and there was 0% data packet loss."
         elif [ "$choice" = 7 ]; then
-        echo "This selection choice is not finished yet"
-    sleep 6
+            echo "This selection choice is not finished yet"
+    sleep 2
     clear
 
 #8. Allows the user to quit the app from the menu.
         elif [ "$choice" = 8 ]; then
-        echo "See ya next time!"
-        break
-        exit
-    done
-
-sleep 5
-    clear
-    echo "Do you want to select another option? (yes/no)" #Asks user to choose something else
-    read selection
-    if [ "$selection" != "yes" ]; then
-        echo "See ya next time!"
-        exit
+            echo "See ya next time!"
+            break
+            exit
+        fi
+    else
+        echo "Sorry wrong answer!"
+	sleep 2
+	clear
+	continue
     fi
-done	
+done
